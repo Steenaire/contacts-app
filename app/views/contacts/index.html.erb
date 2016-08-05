@@ -25,18 +25,23 @@
       function initMap() {
         var myLatLng = {lat: <%= @contacts.first.latitude %>, lng: <%= @contacts.first.longitude %>};
 
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatLng,
-          zoom: 11
-        });
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow(); 
 
-        <% @contacts.each do |contact| %>
-          var marker = new google.maps.Marker({
+        map = new google.maps.Map(document.getElementById('map'), {});
+
+        <% @contacts.each do |contact| %> //Iterate over all the contacts
+          var marker = new google.maps.Marker({ //Make a marker for each contact
             position: {lat: <%= contact.latitude %>, lng: <%= contact.longitude %>},
             map: map,
-            title: 'Contact Location'
+            title: "<%= contact.first_name %>'s Location"
           });
-        <% end %>
+          bounds.extend(marker.position); //extend the bounds to include each marker's position
+        <% end %>   
+
+        //now fit the map to the newly inclusive bounds
+        map.fitBounds(bounds);
+
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["google_key"] %>&callback=initMap"
