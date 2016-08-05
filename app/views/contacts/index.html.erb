@@ -17,6 +17,31 @@
         <td><%= contact.address %> </td>
         </tr>
     <% end %>
+
+    <p>My Contacts Map:</p>
+    <div id="map" style="width: 400px; height: 400px"></div>
+    <script>
+      var map;
+      function initMap() {
+        var myLatLng = {lat: <%= @contacts.first.latitude %>, lng: <%= @contacts.first.longitude %>};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 11
+        });
+
+        <% @contacts.each do |contact| %>
+          var marker = new google.maps.Marker({
+            position: {lat: <%= contact.latitude %>, lng: <%= contact.longitude %>},
+            map: map,
+            title: 'Contact Location'
+          });
+        <% end %>
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["google_key"] %>&callback=initMap"
+    async defer></script>
+
   <% else %>
     <a href="/login">Log In to See Your Contacts!</a>
   <% end %>

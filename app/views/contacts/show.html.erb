@@ -3,6 +3,11 @@
     <p><%= @contact.full_name %></p>
     <p><%= @contact.email %></p>
     <p><%= @contact.phone_number %></p>
+    <p>
+    Groups: <% @contact.groups.each do |group| %>
+      <a href= "/contacts/?group_id=<%= group.id %>"><%= group.name %></a>
+    <% end %>
+    </p>
     <p>Contact's Map Location:</p>
     <div id="map" style="width: 400px; height: 400px"></div>
     <script>
