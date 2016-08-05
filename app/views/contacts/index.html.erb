@@ -1,14 +1,22 @@
 <table class = "table table-hover">
-  <th>First Name</th>
-  <th>Last Name</th>
-  <th>Email</th>
-  <th>Phone Number</th>
-  <% @contacts.each do |contact| %>
-    <tr>
-    <td><%= contact.first_name %></td>
-    <td><%= contact.last_name %></td>
-    <td><%= contact.email %></td>
-    <td><%= contact.phone_number %></td>
-    </tr>
+  <% if current_user %>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone Number</th>
+    <th>Contact Updated</th>
+    <th>Contact Address</th>
+    <% @contacts.each do |contact| %>
+      <a href = "/contacts/<%= contact.id %>">
+        <tr>
+        <td><%= contact.full_name %></td>
+        <td><%= contact.email %></td>
+        <td><%= contact.phone_number %></td>
+        <td><%= contact.updated_friendly_time %></td>
+        <td><%= contact.address %> </td>
+        </tr>
+      </a>
+    <% end %>
+  <% else %>
+    <a href="/login">Log In to See Your Contacts!</a>
   <% end %>
 </table>

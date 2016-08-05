@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-100.times do |n|
-  contact = Contact.new({first_name: Faker::Name.name.split[0], last_name: Faker::Name.name.split[1], email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number})
+10.times do |n|
+  contact = Contact.new({first_name: Faker::Name.name.split[0], last_name: Faker::Name.name.split[1], email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, address: "#{Faker::Address.street_address}, #{Faker::Address.city}, #{Faker::Address.state}", user_id: 2})
   contact.save
 end

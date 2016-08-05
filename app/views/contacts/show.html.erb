@@ -1,0 +1,18 @@
+    <h1>Contact Card</h1>
+
+    <p><%= @contact.full_name %></p>
+    <p><%= @contact.email %></p>
+    <p><%= @contact.phone_number %></p>
+    <p>Contact's Map Location:</p>
+    <div id="map" style="width: 400px; height: 400px"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: <%= @contact.latitude %>, lng: <%= @contact.longitude %>},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOURAPIKEYcallback=initMap"
+    async defer></script>
