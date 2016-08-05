@@ -1,5 +1,8 @@
 class Contact < ApplicationRecord
 
+  has_many :grouped_contacts
+  has_many :groups, through: :grouped_contacts
+
   def updated_friendly_time
     updated_at.strftime("%B %e, %Y")
   end
