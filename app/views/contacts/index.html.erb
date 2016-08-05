@@ -1,4 +1,7 @@
 <table class = "table table-hover">
+  <% if @group %>
+    <h1><%= @group.name %>
+  <% end %>
   <% if current_user %>
     <th>Name</th>
     <th>Email</th>
@@ -6,15 +9,13 @@
     <th>Contact Updated</th>
     <th>Contact Address</th>
     <% @contacts.each do |contact| %>
-      <a href = "/contacts/<%= contact.id %>">
         <tr>
-        <td><%= contact.full_name %></td>
+        <td><a href = "/contacts/<%= contact.id %>"><%= contact.full_name %></a></td>
         <td><%= contact.email %></td>
         <td><%= contact.phone_number %></td>
         <td><%= contact.updated_friendly_time %></td>
         <td><%= contact.address %> </td>
         </tr>
-      </a>
     <% end %>
   <% else %>
     <a href="/login">Log In to See Your Contacts!</a>

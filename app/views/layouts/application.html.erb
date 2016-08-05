@@ -62,11 +62,12 @@
               <li><a href="/signup">Create New Account</a></li>
             <% end %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact Groups <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="/contacts/">All Contacts</a></li>
+                <% Group.all.each do |group| %>
+                  <li><a href="/contacts/?group_id=<%= group.id %>"><%= group.name %></a></li>
+                <% end %>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
               </ul>

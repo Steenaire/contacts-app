@@ -8,9 +8,17 @@
     <script>
       var map;
       function initMap() {
+        var myLatLng = {lat: <%= @contact.latitude %>, lng: <%= @contact.longitude %>};
+
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: <%= @contact.latitude %>, lng: <%= @contact.longitude %>},
+          center: myLatLng,
           zoom: 8
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Contact Location'
         });
       }
     </script>
