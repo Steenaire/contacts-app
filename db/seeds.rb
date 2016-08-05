@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 10.times do |n|
-  contact = Contact.new({first_name: Faker::Name.name.split[0], last_name: Faker::Name.name.split[1], email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, address: "#{Faker::Address.street_address}, #{Faker::Address.city}, #{Faker::Address.state}", user_id: 2})
+  contact = Contact.new({first_name: Faker::Name.name.split[0], last_name: Faker::Name.name.split[1], email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, address: "#{Faker::Address.street_address}, #{Faker::Address.city}", user_id: 2})
+  contact.latitude = Faker::Address.latitude
+  contact.longitude = Faker::Address.longitude
   contact.save
 end
