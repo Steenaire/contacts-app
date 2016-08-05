@@ -32,6 +32,7 @@ gem 'faker'
 gem 'seed_dump'
 gem 'geocoder'
 gem 'gmaps4rails'
+gem 'figaro'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
