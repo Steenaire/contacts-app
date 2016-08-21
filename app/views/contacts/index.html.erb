@@ -21,30 +21,27 @@
 
     <p>My Contacts Map:</p>
     <div id="map" style="width: 400px; height: 400px"></div>
-    <script>
-      var map;
-      function initMap() {
-        var myLatLng = {lat: <%= @contacts.first.latitude %>, lng: <%= @contacts.first.longitude %>};
+      <script>
+        var map;
+        function initMap() {
+          var contacts = <%= raw @script_contacts %>;
+          
+          var bounds = new google.maps.LatLngBounds(); //these will define the bounds of your map
+          map = new google.maps.Map(document.getElementById('map'), {}); //this makes your map caled map
 
-        var bounds = new google.maps.LatLngBounds();
-        var infowindow = new google.maps.InfoWindow(); 
-
-        map = new google.maps.Map(document.getElementById('map'), {});
-
-        <% @contacts.each do |contact| %> //Iterate over all the contacts
-          var marker = new google.maps.Marker({ //Make a marker for each contact
-            position: {lat: <%= contact.latitude %>, lng: <%= contact.longitude %>},
-            map: map,
-            title: "<%= contact.first_name %>'s Location"
-          });
-          bounds.extend(marker.position); //extend the bounds to include each marker's position
-        <% end %>   
-
-        //now fit the map to the newly inclusive bounds
-        map.fitBounds(bounds);
-
-      }
-    </script>
+          for (i = 0; i < contacts.length; i++) { //Iterate over all the contacts
+            var contact = JSON.parse(contacts[i]);
+            var marker = new google.maps.Marker({ //Make a marker for each contact as you iterate
+              position: {lat: contact.latitude, lng: contact.longitude},
+              map: map,
+            });
+            bounds.extend(marker.position); //will extend your bounds each time a contact is added
+          } 
+           
+          //refit the map to the bounds as defined in your each loop
+          map.fitBounds(bounds);
+        }
+      </script>
     <!-- Remember to set your Google API key to "google_key" in the environmental variables hash -->
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["google_key"] %>&callback=initMap"
     async defer></script>

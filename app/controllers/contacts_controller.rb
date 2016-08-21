@@ -3,9 +3,19 @@ class ContactsController < ApplicationController
   def index
     if current_user && !params[:group_id]
       @contacts = Contact.where(user_id: current_user.id)
+      
+      @script_contacts = []
+      @contacts.each do |contact|
+        @script_contacts << contact.to_json
+      end
     elsif params[:group_id]
       @group = Group.find_by(id: params[:group_id])
       @contacts = @group.contacts.where(user_id: current_user.id)
+
+      @script_contacts = []
+      @contacts.each do |contact|
+        @script_contacts << contact.to_json
+      end
     else
       flash[:danger] = "Log In To See Contacts"
       redirect_to "/login"
